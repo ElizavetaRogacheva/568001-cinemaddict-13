@@ -6,10 +6,12 @@ import {createFilmCardTemplate} from "./view/film-card.js";
 import {createListTopTemplate} from "./view/extra-films.js";
 import {createFilmCountTemplate} from "./view/film-count.js";
 import {createShowMoreBtnTemplate} from "./view/show-more-btn.js";
-import {createPopupTemplate} from "./view/popup.js";
+import {generateFilm} from "./mock/film.js";
 
 const FILM_CARD_COUNT = 5;
 const TOP_FILM_CARD_COUNT = 2;
+
+const films = new Array(FILM_CARD_COUNT).fill().map(generateFilm);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -17,7 +19,7 @@ const render = (container, template, place) => {
 
 const addMiniCards = (list, count) => {
   for(let i = 0; i < count; i++) {
-    render(list, createFilmCardTemplate(), `beforeend`);
+    render(list, createFilmCardTemplate(films[i]), `beforeend`);
   }
 };
 
@@ -45,4 +47,3 @@ addMiniCards(topRatedFilms, TOP_FILM_CARD_COUNT);
 addMiniCards(topCommentedFilms, TOP_FILM_CARD_COUNT);
 
 render(siteFooterSection, createFilmCountTemplate(), `beforeend`);
-render(siteFooter, createPopupTemplate(), `afterend`);
