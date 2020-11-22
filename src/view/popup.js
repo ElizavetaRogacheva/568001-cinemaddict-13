@@ -1,7 +1,9 @@
+import {formatDate} from "../utils.js";
 import {EMOJI} from "../const.js";
 
 const createComments = (comments) => {
   return comments.map((comment) =>
+
     `<li class="film-details__comment">
       <span class="film-details__comment-emoji">
         <img src="./images/emoji/${comment.emoji}.png" width="55" height="55" alt="emoji-smile">
@@ -10,7 +12,7 @@ const createComments = (comments) => {
         <p class="film-details__comment-text">${comment.text}</p>
         <p class="film-details__comment-info">
           <span class="film-details__comment-author">${comment.autor}</span>
-          <span class="film-details__comment-day">${comment.date}</span>
+          <span class="film-details__comment-day">${formatDate(`YYYY/MM/D HH:mm`, comment.date)}</span>
           <button class="film-details__comment-delete">Delete</button>
         </p>
       </div>
@@ -27,7 +29,7 @@ const createEmoji = () => {
 };
 
 const createGenres = (genres) => {
-  const genreTitle = (genres.length === 1 ? `Genre` : `Genres`);
+  const genreTitle = (genres.length <= 1 ? `Genre` : `Genres`);
   let genresTemplate = ``;
   genresTemplate += `<td class="film-details__term">${genreTitle}</td>
     <td class="film-details__cell">`;
@@ -39,6 +41,8 @@ const createGenres = (genres) => {
 };
 
 export const createPopupTemplate = (film) => {
+  const filmDate = formatDate(`D MMMM YYYY`, film.date);
+
   return `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
       <div class="film-details__top-container">
@@ -79,7 +83,7 @@ export const createPopupTemplate = (film) => {
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Release Date</td>
-                <td class="film-details__cell">${film.date}</td>
+                <td class="film-details__cell">${filmDate}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Runtime</td>

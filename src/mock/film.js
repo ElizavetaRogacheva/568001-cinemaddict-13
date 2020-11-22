@@ -102,7 +102,7 @@ const generateDescriptions = (data) => {
 };
 
 const generateGenresList = (data) => {
-  const randomIndex = getRandomInteger(0, data.length - 1);
+  const randomIndex = getRandomInteger(1, data.length - 1);
   let genresList = [];
   for (let i = 0; i < randomIndex; i++) {
     genresList.push(data[getRandomInteger(0, data.length - 1)]);
