@@ -6,6 +6,7 @@ import {createFilmCardTemplate} from "./view/film-card.js";
 import {createListTopTemplate} from "./view/extra-films.js";
 import {createFilmCountTemplate} from "./view/film-count.js";
 import {createShowMoreBtnTemplate} from "./view/show-more-btn.js";
+import {createPopupTemplate} from "./view/popup.js";
 import {generateFilm} from "./mock/film.js";
 
 const FILM_CARD_COUNT = 5;
@@ -47,3 +48,4 @@ addMiniCards(topRatedFilms, TOP_FILM_CARD_COUNT);
 addMiniCards(topCommentedFilms, TOP_FILM_CARD_COUNT);
 
 render(siteFooterSection, createFilmCountTemplate(), `beforeend`);
+render(siteFooter, createPopupTemplate(films[0]), `afterend`);
