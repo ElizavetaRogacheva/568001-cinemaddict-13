@@ -144,14 +144,14 @@ export const generateFilm = () => {
     poster: generateData(filmPosters),
     description: generateDescriptions(descriptions),
     comments,
-    isViewed: Boolean(getRandomInteger(0, 1)),
-    isFavourite: Boolean(getRandomInteger(0, 1)),
-    isAlreadyView: Boolean(getRandomInteger(0, 1)),
     actors: `Erich von Stroheim, Mary Beth Hughes, Dan Duryea`,
     country: `USA`,
     director: `Anthony Mann`,
     writers: `Anne Wigton, Heinz Herald, Richard Weil`,
-    limitation: `18+`
+    limitation: `18+`,
+    inWatchlist: Boolean(getRandomInteger(0, 1)),
+    inHistory: Boolean(getRandomInteger(0, 1)),
+    inFavorites: Boolean(getRandomInteger(0, 1))
   };
 };
 

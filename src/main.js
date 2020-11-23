@@ -8,11 +8,14 @@ import {createFilmCountTemplate} from "./view/film-count.js";
 import {createShowMoreBtnTemplate} from "./view/show-more-btn.js";
 import {createPopupTemplate} from "./view/popup.js";
 import {generateFilm} from "./mock/film.js";
+import {generateFilter} from "./mock/filter.js";
 
 const FILM_CARD_COUNT = 5;
 const TOP_FILM_CARD_COUNT = 2;
 
 const films = new Array(FILM_CARD_COUNT).fill().map(generateFilm);
+const filters = generateFilter(films);
+console.log(filters);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -30,7 +33,7 @@ const siteFooter = document.querySelector(`.footer`);
 const siteFooterSection = siteFooter.querySelector(`.footer__statistics`);
 
 render(siteHeaderElement, createUserNameTemplate(), `beforeend`);
-render(siteMainElement, createMenuTemplate(), `beforeend`);
+render(siteMainElement, createMenuTemplate(filters), `beforeend`);
 render(siteMainElement, createSortTemplate(), `beforeend`);
 render(siteMainElement, createListTemplate(), `beforeend`);
 
