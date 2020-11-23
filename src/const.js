@@ -4,3 +4,5 @@ export const EMOJI = [
   `puke`,
   `angry`
 ];
+
+export const MAX_LENGTH = 140;

@@ -132,7 +132,7 @@ const generateComment = () => {
   };
 };
 
-const comments = new Array(getRandomInteger(0, 10)).fill().map(generateComment);
+const comments = new Array(getRandomInteger(0, 5)).fill().map(generateComment);
 
 export const generateFilm = () => {
   return {
