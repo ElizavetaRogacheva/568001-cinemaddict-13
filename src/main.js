@@ -9,6 +9,7 @@ import {createShowMoreBtnTemplate} from "./view/show-more-btn.js";
 import {createPopupTemplate} from "./view/popup.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
+import {generateUserName} from "./mock/username.js";
 
 const FILM_CARD_COUNT = 18;
 const FILM_CARD_STEP = 5;
@@ -16,6 +17,7 @@ const TOP_FILM_CARD_COUNT = 2;
 
 const films = new Array(FILM_CARD_COUNT).fill().map(generateFilm);
 const filters = generateFilter(films);
+const username = generateUserName(films);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -32,7 +34,7 @@ const siteHeaderElement = document.querySelector(`.header`);
 const siteFooter = document.querySelector(`.footer`);
 const siteFooterSection = siteFooter.querySelector(`.footer__statistics`);
 
-render(siteHeaderElement, createUserNameTemplate(), `beforeend`);
+render(siteHeaderElement, createUserNameTemplate(username), `beforeend`);
 render(siteMainElement, createMenuTemplate(filters), `beforeend`);
 render(siteMainElement, createSortTemplate(), `beforeend`);
 render(siteMainElement, createListTemplate(), `beforeend`);
