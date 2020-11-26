@@ -7,8 +7,9 @@ export const formatDate = (param, date) => {
 
 export const clipText = (text) => {
   if(text.length > 140) {
-    let newText = text.substr(0, MAX_LENGTH);
-    newText += `...`;
+    let newText = text.substr(0, MAX_LENGTH) + `...`;
     return newText;
+  } else {
+    return text;
   }
 };
