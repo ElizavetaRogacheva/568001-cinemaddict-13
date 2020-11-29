@@ -1,11 +1,11 @@
 import {createUserNameTemplate} from "./view/username.js";
 import MenuView from "./view/menu.js";
-import {createSortTemplate} from "./view/sort.js";
-import {createListTemplate} from "./view/films-list.js";
+import FilmCountView from "./view/film-count.js";
+import FilmListView from "./view/films-list.js";
+import ShowMoreBtnView from "./view/show-more-btn.js";
+import SortMenuView from "./view/sort.js";
 import {createFilmCardTemplate} from "./view/film-card.js";
 import {createListTopTemplate} from "./view/extra-films.js";
-import {createFilmCountTemplate} from "./view/film-count.js";
-import {createShowMoreBtnTemplate} from "./view/show-more-btn.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 import {generateUserName} from "./mock/username.js";
@@ -33,8 +33,10 @@ const siteFooterSection = siteFooter.querySelector(`.footer__statistics`);
 
 renderTemplate(siteHeaderElement, createUserNameTemplate(username), `beforeend`);
 renderElement(siteMainElement, new MenuView().getElement(), RenderPosition.BEFOREEND);
-renderTemplate(siteMainElement, createSortTemplate(), `beforeend`);
-renderTemplate(siteMainElement, createListTemplate(), `beforeend`);
+renderElement(siteMainElement, new SortMenuView().getElement(), RenderPosition.BEFOREEND);
+
+
+renderElement(siteMainElement, new FilmListView().getElement(), RenderPosition.BEFOREEND);
 
 const siteFilmsSection = siteMainElement.querySelector(`.films-list`);
 const siteFilmsList = siteFilmsSection.querySelector('.films-list__container');
@@ -45,7 +47,7 @@ for (let i = 0; i < Math.min(films.length, FILM_CARD_STEP); i++) {
 
 if (films.length > FILM_CARD_STEP) {
   let renderFilmsCount = FILM_CARD_STEP;
-  renderTemplate(siteFilmsSection, createShowMoreBtnTemplate(), `beforeend`);
+  renderElement(siteFilmsSection, new ShowMoreBtnView().getElement(), RenderPosition.BEFOREEND);
   const showMoreButton = siteFilmsSection.querySelector(`.films-list__show-more`);
 
   showMoreButton.addEventListener(`click`, (evt) => {
@@ -69,4 +71,4 @@ const [topRatedFilms, topCommentedFilms] = siteMainElement.querySelectorAll('.fi
 addMiniCards(topRatedFilms, TOP_FILM_CARD_COUNT);
 addMiniCards(topCommentedFilms, TOP_FILM_CARD_COUNT);
 
-renderTemplate(siteFooterSection, createFilmCountTemplate(), `beforeend`);
+renderElement(siteFooterSection, new FilmCountView().getElement(), RenderPosition.BEFOREEND);

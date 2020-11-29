@@ -1,4 +1,6 @@
-export const createListTemplate = () => {
+import {createElement} from "./../utils.js";
+
+const createListTemplate = () => {
   return `<section class="films">
     <section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
@@ -7,3 +9,25 @@ export const createListTemplate = () => {
     </section>
   </section>`;
 };
+
+
+export default class FilmList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createListTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
