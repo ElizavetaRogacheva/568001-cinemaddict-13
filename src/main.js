@@ -1,10 +1,10 @@
-import {createUserNameTemplate} from "./view/username.js";
+import UsernameView from "./view/username.js";
 import MenuView from "./view/menu.js";
 import FilmCountView from "./view/film-count.js";
 import FilmListView from "./view/films-list.js";
 import ShowMoreBtnView from "./view/show-more-btn.js";
 import SortMenuView from "./view/sort.js";
-import {createFilmCardTemplate} from "./view/film-card.js";
+import FilmCardView from "./view/film-card.js";
 import {createListTopTemplate} from "./view/extra-films.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
@@ -22,7 +22,7 @@ const username = generateUserName(films);
 
 const addMiniCards = (list, count) => {
   for(let i = 0; i < count; i++) {
-    renderTemplate(list, createFilmCardTemplate(films[i]), `beforeend`);
+    renderElement(list, new FilmCardView(films[i]).getElement(), RenderPosition.BEFOREEND);
   }
 };
 
@@ -31,8 +31,8 @@ const siteHeaderElement = document.querySelector(`.header`);
 const siteFooter = document.querySelector(`.footer`);
 const siteFooterSection = siteFooter.querySelector(`.footer__statistics`);
 
-renderTemplate(siteHeaderElement, createUserNameTemplate(username), `beforeend`);
-renderElement(siteMainElement, new MenuView().getElement(), RenderPosition.BEFOREEND);
+renderElement(siteHeaderElement, new UsernameView(username).getElement(), RenderPosition.BEFOREEND);
+renderElement(siteMainElement, new MenuView(filters).getElement(), RenderPosition.BEFOREEND);
 renderElement(siteMainElement, new SortMenuView().getElement(), RenderPosition.BEFOREEND);
 
 
@@ -42,7 +42,7 @@ const siteFilmsSection = siteMainElement.querySelector(`.films-list`);
 const siteFilmsList = siteFilmsSection.querySelector('.films-list__container');
 
 for (let i = 0; i < Math.min(films.length, FILM_CARD_STEP); i++) {
-  renderTemplate(siteFilmsList, createFilmCardTemplate(films[i]), `beforeend`);
+  renderElement(siteFilmsList, new FilmCardView(films[i]).getElement(), RenderPosition.BEFOREEND);
 };
 
 if (films.length > FILM_CARD_STEP) {
@@ -54,7 +54,7 @@ if (films.length > FILM_CARD_STEP) {
     evt.preventDefault();
     films
       .slice(renderFilmsCount, renderFilmsCount + FILM_CARD_STEP)
-      .forEach((film) => renderTemplate(siteFilmsList, createFilmCardTemplate(film), `beforeend`));
+      .forEach((film) => renderElement(siteFilmsList, new FilmCardView(film).getElement(), RenderPosition.BEFOREEND));
 
     renderFilmsCount += FILM_CARD_STEP;
 
