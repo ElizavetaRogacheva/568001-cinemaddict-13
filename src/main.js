@@ -34,7 +34,11 @@ const renderFilm = (filmCardWrapper, filmData) => {
   ];
 
   const openPopup = () => {
-    render(siteFooter, filmPopup.getElement(), RenderPosition.AFTERBEGIN);
+    render(
+      siteFooter,
+      filmPopup.getElement(),
+      RenderPosition.AFTERBEGIN
+    );
     siteBody.classList.add('hide-overflow');
   };
 
@@ -83,7 +87,11 @@ render(siteMainElement, new MenuView(filters).getElement(), RenderPosition.BEFOR
 render(siteMainElement, new SortMenuView().getElement(), RenderPosition.BEFOREEND);
 
 if(films.length > 0) {
-  render(siteMainElement, new FilmListView().getElement(), RenderPosition.BEFOREEND);
+  render(
+    siteMainElement,
+    new FilmListView().getElement(),
+    RenderPosition.BEFOREEND
+  );
   const siteFilmsSection = siteMainElement.querySelector(`.films-list`);
   const siteFilmsList = siteFilmsSection.querySelector('.films-list__container');
 
@@ -93,14 +101,23 @@ if(films.length > 0) {
 
   if (films.length > FILM_CARD_STEP) {
     let renderFilmsCount = FILM_CARD_STEP;
-    render(siteFilmsSection, new ShowMoreBtnView().getElement(), RenderPosition.BEFOREEND);
+    render(
+      siteFilmsSection,
+      new ShowMoreBtnView().getElement(),
+      RenderPosition.BEFOREEND
+    );
     const showMoreButton = siteFilmsSection.querySelector(`.films-list__show-more`);
 
     showMoreButton.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       films
         .slice(renderFilmsCount, renderFilmsCount + FILM_CARD_STEP)
-        .forEach((film) => render(siteFilmsList, new FilmCardView(film).getElement(), RenderPosition.BEFOREEND));
+        .forEach((film) =>
+          render(
+            siteFilmsList,
+            new FilmCardView(film).getElement(),
+            RenderPosition.BEFOREEND)
+        );
 
       renderFilmsCount += FILM_CARD_STEP;
 
@@ -110,7 +127,13 @@ if(films.length > 0) {
     });
   };
 
-  EXTRA_FILMS_TITLES.forEach(title => render(siteMainElement, new ExtraFilmsView(title).getElement(), RenderPosition.BEFOREEND));
+  EXTRA_FILMS_TITLES.forEach(title =>
+    render(
+      siteMainElement,
+      new ExtraFilmsView(title).getElement(),
+      RenderPosition.BEFOREEND
+    )
+  );
 
   const [topRatedFilms, topCommentedFilms] = siteMainElement.querySelectorAll('.films-list--extra .films-list__container');
 
