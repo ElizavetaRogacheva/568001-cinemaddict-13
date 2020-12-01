@@ -1,4 +1,4 @@
-import {formatDate} from "../utils.js";
+import {createElement, formatDate} from "../utils.js";
 import {EMOJI} from "../const.js";
 
 const createComments = (comments) => {
@@ -138,3 +138,26 @@ export const createPopupTemplate = (film) => {
     </form>
   </section>`;
 };
+
+
+export default class Popup {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPopupTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
