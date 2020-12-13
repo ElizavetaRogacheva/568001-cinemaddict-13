@@ -1,4 +1,4 @@
-import {formatDate, clipText} from "./../utils.js";
+import {formatDate, clipText} from "./../utils/film.js";
 import AbstractView from "./abstract.js";
 
 

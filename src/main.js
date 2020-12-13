@@ -11,7 +11,7 @@ import NoFilmsView from "./view/no-films.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 import {generateUserName} from "./mock/username.js";
-import {render, RenderPosition} from "./utils.js";
+import {render, RenderPosition} from "./utils/render.js";
 import {EXTRA_FILMS_TITLES} from "./const.js";
 
 const FILM_CARD_COUNT = 18;

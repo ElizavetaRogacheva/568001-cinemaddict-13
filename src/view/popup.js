@@ -1,4 +1,4 @@
-import {formatDate} from "../utils.js";
+import {formatDate} from "../utils/film.js";
 import {EMOJI} from "../const.js";
 import AbstractView from "./abstract.js";
 
