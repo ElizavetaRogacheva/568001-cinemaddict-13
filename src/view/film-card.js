@@ -1,5 +1,6 @@
 import {formatDate, clipText} from "./../utils/film.js";
 import AbstractView from "./abstract.js";
+import {FILM_CARD_ELEMS} from "../const.js";
 
 
 const createFilmCardTemplate = (film) => {
@@ -31,6 +32,19 @@ export default class FilmCard extends AbstractView {
   constructor(film) {
     super();
     this._film = film;
+    this._clickHandler = this._clickHandler.bind(this);
+  }
+
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
+  }
+
+  setClickHandler(callback) {
+    this._callback.click = callback;
+    FILM_CARD_ELEMS.forEach((element) => {
+      this.getElement().querySelector(element).addEventListener(`click`, this._clickHandler);
+    });
   }
 
   getTemplate() {
