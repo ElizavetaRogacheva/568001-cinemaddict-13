@@ -7,7 +7,7 @@ import SortMenuView from "./view/sort.js";
 import FilmCardView from "./view/film-card.js";
 import ExtraFilmsView from "./view/extra-films.js";
 import PopupView from "./view/popup.js";
-import NoFilmsView from "./view/no-films.js";
+import FilmsEmptyView from "./view/no-films.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 import {generateUserName} from "./mock/username.js";
@@ -129,7 +129,7 @@ if(films.length > 0) {
   addMiniCards(topRatedFilms, TOP_FILM_CARD_COUNT);
   addMiniCards(topCommentedFilms, TOP_FILM_CARD_COUNT);
 } else {
-  render(siteMainElement, new NoFilmsView(), RenderPosition.BEFOREEND);
+  render(siteMainElement, new FilmsEmptyView(), RenderPosition.BEFOREEND);
 }
 
 render(siteFooterSection, new FilmCountView(), RenderPosition.BEFOREEND);
