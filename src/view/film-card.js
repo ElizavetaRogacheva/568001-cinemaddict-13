@@ -9,6 +9,15 @@ const createFilmCardTemplate = (film) => {
   const commentsCount = comments.length;
   const year = formatDate(`YYYY`, date);
   const shortDesc = clipText(description);
+
+  const checkActiveState = (state) => {
+    return state === true ? `film-card__controls-item--active` : ``;
+  };
+
+  const activeWatchedClass = checkActiveState(film.inHistory);
+  const activeWatchListClass = checkActiveState(film.inWatchlist);
+  const activeFavoriteClass = checkActiveState(film.inFavorites);
+
   return `<article class="film-card">
     <h3 class="film-card__title">${title}</h3>
     <p class="film-card__rating">${rating}</p>
@@ -21,9 +30,9 @@ const createFilmCardTemplate = (film) => {
     <p class="film-card__description">${shortDesc}</p>
     <a class="film-card__comments">${commentsCount} comments</a>
     <div class="film-card__controls">
-      <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
-      <button class="film-card__controls-item button film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
-      <button class="film-card__controls-item button film-card__controls-item--favorite" type="button">Mark as favorite</button>
+      <button class="film-card__controls-item button ${activeWatchListClass} film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
+      <button class="film-card__controls-item button ${activeWatchedClass} film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
+      <button class="film-card__controls-item button ${activeFavoriteClass} film-card__controls-item--favorite" type="button">Mark as favorite</button>
     </div>
   </article>`;
 };
