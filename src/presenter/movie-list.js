@@ -3,6 +3,7 @@ import ShowMoreBtnView from "../view/show-more-btn.js";
 import FilmsEmptyView from "../view/no-films.js";
 import {render, RenderPosition, remove} from "../utils/render.js";
 import FilmPresenter from "./movie.js";
+import {updateItem} from "../utils/common.js";
 
 const FILM_CARD_STEP = 5;
 
@@ -16,7 +17,8 @@ export default class MovieList {
     this._movieListComponent = new FilmListView();
     this._filmsEmptyComponent = new FilmsEmptyView();
     this._showMoreBtnComponent = new ShowMoreBtnView();
-    this.__handleShowMoreBtnClick = this.__handleShowMoreBtnClick.bind(this);
+    this._handleFilmChange = this._handleFilmChange.bind(this);
+    this._handleShowMoreBtnClick = this._handleShowMoreBtnClick.bind(this);
   }
 
   init(films) {
@@ -31,11 +33,16 @@ export default class MovieList {
     this._renderFilmsComponent();
   }
 
+  _handleFilmChange(updatedFilms) {
+    this._films = updateItem(this._films, updatedFilms);
+    this._filmPresenter[updatedFilms.id].init(updatedFilms);
+  }
+
   _renderFilm(film) {
     const siteFilmsSection = this._movieListContainer.querySelector(`.films-list`);
     const siteFilmsList = siteFilmsSection.querySelector(`.films-list__container`);
 
-    const filmPresenter = new FilmPresenter(siteFilmsList);
+    const filmPresenter = new FilmPresenter(siteFilmsList, this._handleFilmChange);
     filmPresenter.init(film);
     this._filmPresenter[film.id] = filmPresenter;
 
@@ -75,7 +82,7 @@ export default class MovieList {
     );
   }
 
-  __handleShowMoreBtnClick() {
+  _handleShowMoreBtnClick() {
     this._renderFilms(this._renderedFilmsCount, this._renderedFilmsCount + FILM_CARD_STEP);
     this._renderedFilmsCount += FILM_CARD_STEP;
     if (this._renderedFilmsCount >= this._films.length) {
@@ -92,7 +99,7 @@ export default class MovieList {
         RenderPosition.BEFOREEND
     );
 
-    this._showMoreBtnComponent.setClickHandler(this.__handleShowMoreBtnClick);
+    this._showMoreBtnComponent.setClickHandler(this._handleShowMoreBtnClick);
   }
 
   _renderFilmsComponent() {
