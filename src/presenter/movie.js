@@ -2,10 +2,17 @@ import FilmCardView from "../view/film-card.js";
 import PopupView from "../view/popup.js";
 import {render, RenderPosition, remove, replace} from "../utils/render.js";
 
+const Mode = {
+  DEFAULT: `DEFAULT`,
+  OPENPOPUP: `OPENPOPUP`
+};
+
 export default class Movie {
-  constructor(filmsListContainer, changeData) {
+  constructor(filmsListContainer, changeData, changeMode) {
     this._filmsList = filmsListContainer;
     this._changeData = changeData;
+    this._changeMode = changeMode;
+    this._mode = Mode.DEFAULT;
 
     this._filmComponent = null;
     this._filmPopup = null;
@@ -22,6 +29,7 @@ export default class Movie {
   init(film) {
     this._film = film;
 
+
     const prevFilmComponent = this._filmComponent;
     const prevFilmPopup = this._filmPopup;
 
@@ -35,6 +43,10 @@ export default class Movie {
     this._filmComponent.setWatchedClickHandler(this._handleWatchedClick);
     this._filmComponent.setWatchListClickHandler(this._handleWatchListClick);
 
+    this._filmPopup.setFavoriteClickHandler(this._handleFavoriteClick);
+    this._filmPopup.setWatchedClickHandler(this._handleWatchedClick);
+    this._filmPopup.setWatchListClickHandler(this._handleWatchListClick);
+
     if (prevFilmComponent === null || prevFilmPopup === null) {
       render(
           this._filmsList,
@@ -45,11 +57,11 @@ export default class Movie {
       return;
     }
 
-    if (this._filmsList.contains(prevFilmComponent.getElement())) {
+    if (this._mode === `DEFAULT`) {
       replace(this._filmComponent, prevFilmComponent);
     }
 
-    if (document.querySelector(`body`).contains(prevFilmPopup.getElement())) {
+    if (this._mode === `OPENPOPUP`) {
       replace(this._filmPopup, prevFilmPopup);
     }
 
@@ -76,6 +88,7 @@ export default class Movie {
     siteBody.classList.remove(`hide-overflow`);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
 
+    this._mode = Mode.DEFAULT;
   }
 
   _openPopup() {
@@ -90,6 +103,15 @@ export default class Movie {
 
     siteBody.classList.add(`hide-overflow`);
     document.addEventListener(`keydown`, this._escKeyDownHandler);
+
+    this._changeMode();
+    this._mode = Mode.OPENPOPUP;
+  }
+
+  resetView() {
+    if (this._mode !== Mode.DEFAULT) {
+      this._closePopup();
+    }
   }
 
   _handleFilmBtnsClick() {

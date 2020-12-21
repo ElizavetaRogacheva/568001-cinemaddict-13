@@ -18,6 +18,7 @@ export default class MovieList {
     this._filmsEmptyComponent = new FilmsEmptyView();
     this._showMoreBtnComponent = new ShowMoreBtnView();
     this._handleFilmChange = this._handleFilmChange.bind(this);
+    this._handleModeChange = this._handleModeChange.bind(this);
     this._handleShowMoreBtnClick = this._handleShowMoreBtnClick.bind(this);
   }
 
@@ -33,6 +34,12 @@ export default class MovieList {
     this._renderFilmsComponent();
   }
 
+  _handleModeChange() {
+    Object
+      .values(this._filmPresenter)
+      .forEach((presenter) => presenter.resetView());
+  }
+
   _handleFilmChange(updatedFilms) {
     this._films = updateItem(this._films, updatedFilms);
     this._filmPresenter[updatedFilms.id].init(updatedFilms);
@@ -42,7 +49,7 @@ export default class MovieList {
     const siteFilmsSection = this._movieListContainer.querySelector(`.films-list`);
     const siteFilmsList = siteFilmsSection.querySelector(`.films-list__container`);
 
-    const filmPresenter = new FilmPresenter(siteFilmsList, this._handleFilmChange);
+    const filmPresenter = new FilmPresenter(siteFilmsList, this._handleFilmChange, this._handleModeChange);
     filmPresenter.init(film);
     this._filmPresenter[film.id] = filmPresenter;
 
