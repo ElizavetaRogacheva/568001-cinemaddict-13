@@ -1,6 +1,7 @@
 import {EMOJI} from "../const.js";
 import {getRandomInteger, generateDate} from "../utils/common.js";
 
+const generateId = () => Date.now() + parseInt(Math.random() * 10000, 10);
 
 const descriptions = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -123,6 +124,7 @@ const comments = new Array(getRandomInteger(0, 5)).fill().map(generateComment);
 
 export const generateFilm = () => {
   return {
+    id: generateId(),
     title: generateData(filmTitles),
     rating: generateData(ratings),
     date: generateDate(),
