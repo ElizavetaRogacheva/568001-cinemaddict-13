@@ -1,7 +1,6 @@
 import UsernameView from "./view/username.js";
 import MenuView from "./view/menu.js";
 import FilmCountView from "./view/film-count.js";
-import SortMenuView from "./view/sort.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 import {generateUserName} from "./mock/username.js";
@@ -21,7 +20,6 @@ const siteFooterSection = siteFooter.querySelector(`.footer__statistics`);
 
 render(siteHeaderElement, new UsernameView(username), RenderPosition.BEFOREEND);
 render(siteMainElement, new MenuView(filters), RenderPosition.BEFOREEND);
-render(siteMainElement, new SortMenuView(), RenderPosition.BEFOREEND);
 render(siteFooterSection, new FilmCountView(), RenderPosition.BEFOREEND);
 
 const filmsPresenter = new FilmsPresenter(siteMainElement);
